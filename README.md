@@ -6,7 +6,7 @@ PowerShell-based Active Directory user lifecycle automation for IAM portfolio de
 
 # PowerShell AD User Lifecycle Management
 
-Project Overview
+### Project Overview
 
 This project demonstrates PowerShell-based automation for managing the employee lifecycle in a Windows Server Active Directory environment.
 
@@ -25,7 +25,7 @@ The goal is to demonstrate practical Active Directory administration, role-based
 
 
 
-Objectives
+### Objectives
 
 The project was designed to demonstrate the ability to:
 
@@ -46,7 +46,7 @@ The project was designed to demonstrate the ability to:
 
 
 
-Environment
+### Environment
 
 | Component | Configuration |
 |---|---|
@@ -58,9 +58,9 @@ Environment
 | Automation | PowerShell |
 | Version Control | Git / GitHub |
 
-Active Directory Structure
+### Active Directory Structure
 
-Organizational Units:
+### Organizational Units:
 
 - HR
 - Operations
@@ -69,7 +69,7 @@ Organizational Units:
 - Sales
 - Disabled Users
 
-Department security groups:
+### Department security groups:
 
 - HR-Users
 - Operations-Users
@@ -81,7 +81,7 @@ Department security groups:
 
 
 
-Repository Structure
+### Repository Structure
 
 
 PowerShell-AD-User-Lifecycle-Management/
@@ -262,7 +262,7 @@ PowerShell automates repeatable administrative tasks, while validation and post-
 
 
 
-Lessons Learned
+### Lessons Learned
 
 1. Validate Before Making Changes
 
@@ -294,7 +294,7 @@ Multi-step operations can partially succeed. Production automation should includ
 
 
 
-Future Improvements
+### Future Improvements
 
 Potential enhancements for a more production-oriented implementation include:
 
@@ -312,7 +312,7 @@ These are potential future enhancements, not features claimed as completed in th
 
 
 
-Skills Demonstrated
+### Skills Demonstrated
 
 - Active Directory administration
 - PowerShell scripting and automation
