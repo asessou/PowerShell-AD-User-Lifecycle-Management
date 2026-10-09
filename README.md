@@ -91,3 +91,10 @@ PowerShell-AD-User-Lifecycle-Management/
 │
 ├── .gitignore
 └── README.md
+
+## JOINER — Employee Onboarding
+
+### Script
+
+```text
+scripts/New-NMGEmployee.ps1
