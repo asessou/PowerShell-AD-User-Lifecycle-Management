@@ -1,3 +1,9 @@
+
+
+# PowerShell-AD-User-Lifecycle-Management
+PowerShell-based Active Directory user lifecycle automation for IAM portfolio development
+
+
 # PowerShell AD User Lifecycle Management
 
 ## Project Overview
@@ -13,6 +19,11 @@ The project simulates common IAM and IT operations for a fictional organization,
 The goal is to demonstrate practical Active Directory administration, role-based access control (RBAC), PowerShell automation, validation, error handling, and audit logging.
 
 > **Lab project:** This repository was developed in a controlled Windows Server Active Directory lab using fictional employee data. It is not intended to represent a production implementation.
+
+
+
+---
+
 
 ## Objectives
 
@@ -30,6 +41,11 @@ The project was designed to demonstrate the ability to:
 - Handle errors without stopping the entire batch
 - Maintain basic audit logs
 - Verify the final state after lifecycle operations
+
+
+
+---
+
 
 ## Environment
 
@@ -62,6 +78,11 @@ Department security groups:
 - IT-Users
 - Sales-Users
 
+
+
+---
+
+
 ## Repository Structure
 
 ```text
@@ -89,6 +110,7 @@ PowerShell-AD-User-Lifecycle-Management/
 
 ```text
 scripts/New-NMGEmployee.ps1
+
 
 ### Security Consideration
 
@@ -319,3 +341,5 @@ It demonstrates foundational IAM automation concepts, but it is not a production
 IT / IAM Portfolio Project
 
 **Career focus:** IT Support → Identity and Access Management → Cybersecurity
+
+
