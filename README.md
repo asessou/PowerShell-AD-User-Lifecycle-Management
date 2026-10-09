@@ -6,7 +6,7 @@ PowerShell-based Active Directory user lifecycle automation for IAM portfolio de
 
 # PowerShell AD User Lifecycle Management
 
-## Project Overview
+Project Overview
 
 This project demonstrates PowerShell-based automation for managing the employee lifecycle in a Windows Server Active Directory environment.
 
@@ -22,10 +22,10 @@ The goal is to demonstrate practical Active Directory administration, role-based
 
 
 
----
 
 
-## Objectives
+
+Objectives
 
 The project was designed to demonstrate the ability to:
 
@@ -44,10 +44,9 @@ The project was designed to demonstrate the ability to:
 
 
 
----
 
 
-## Environment
+Environment
 
 | Component | Configuration |
 |---|---|
@@ -59,7 +58,7 @@ The project was designed to demonstrate the ability to:
 | Automation | PowerShell |
 | Version Control | Git / GitHub |
 
-### Active Directory Structure
+Active Directory Structure
 
 Organizational Units:
 
@@ -80,12 +79,11 @@ Department security groups:
 
 
 
----
 
 
-## Repository Structure
+Repository Structure
 
-```text
+
 PowerShell-AD-User-Lifecycle-Management/
 │
 ├── data/
@@ -104,28 +102,28 @@ PowerShell-AD-User-Lifecycle-Management/
 ├── .gitignore
 └── README.md
 
-## JOINER — Employee Onboarding
+JOINER — Employee Onboarding
 
-### Script
+Script
 
-```text
+
 scripts/New-NMGEmployee.ps1
 
 
-### Security Consideration
+Security Consideration
 
 The script does not contain a hard-coded password.
 
 Instead, the administrator is prompted to enter the temporary password securely:
 
-```powershell
+
 $tempPassword = Read-Host "Enter temporary password" -AsSecureString
 
----
 
-## MOVER — Department and Job Changes
 
-### Script
+MOVER — Department and Job Changes
+
+Script
 
 `scripts/Move-NMGEmployee.ps1`
 
@@ -140,7 +138,7 @@ It supports:
 - Validation of target OUs and security groups
 - Error handling and audit logging
 
-### Example: Finance to IT
+Example: Finance to IT
 
 When an employee transfers from Finance to IT, the script:
 
@@ -154,11 +152,11 @@ When an employee transfers from Finance to IT, the script:
 
 The script also handles same-department title changes without unnecessarily changing group membership or OU placement.
 
----
 
-## LEAVER — Employee Offboarding
 
-### Script
+LEAVER — Employee Offboarding
+
+Script
 
 `scripts/Disable-NMGEmployee.ps1`
 
@@ -175,9 +173,9 @@ The process:
 7. Verifies the final account state.
 8. Records the outcome in the local audit log.
 
-### Expected Offboarding State
+Expected Offboarding State
 
-```text
+
 Active Employee
       ↓
 Account Disabled
@@ -188,9 +186,9 @@ Moved to Disabled Users OU
       ↓
 Final State Verified
 
----
 
-## Validation and Testing
+
+Validation and Testing
 
 The lifecycle scripts were tested using fictional employees in the NMG Active Directory lab.
 
@@ -203,13 +201,13 @@ The lifecycle scripts were tested using fictional employees in the NMG Active Di
 
 Example duplicate test result:
 
-```text
+
 User ejohnson already exists. No account was created.
 
 
----
 
-## Error Handling and Audit Logging
+
+Error Handling and Audit Logging
 
 The scripts validate required Active Directory objects and handle common operational errors, including:
 
@@ -230,17 +228,17 @@ These logs help an administrator review operations and troubleshoot failures. Th
 
 Error handling is designed to allow batch processing to continue when an individual record encounters a handled error. It does not guarantee rollback if a multi-step operation partially succeeds.
 
----
 
-## IAM Concepts Demonstrated
 
-### Identity Lifecycle Management
+IAM Concepts Demonstrated
+
+Identity Lifecycle Management
 
 The project models three key stages of the employee identity lifecycle:
 
 `JOINER → MOVER → LEAVER`
 
-### Role-Based Access Control (RBAC)
+Role-Based Access Control (RBAC)
 
 Department security groups represent role-based access assignments:
 
@@ -250,53 +248,53 @@ Department security groups represent role-based access assignments:
 - Operations → `Operations-Users`
 - Sales → `Sales-Users`
 
-### Least Privilege
+Least Privilege
 
 During a department transfer, the script removes the employee from the previous department group before assigning the new department group.
 
-### Account Isolation
+Account Isolation
 
 During offboarding, the account is disabled, department-specific access is removed, and the account is moved to a dedicated Disabled Users OU.
 
-### Automation and Verification
+Automation and Verification
 
 PowerShell automates repeatable administrative tasks, while validation and post-operation checks help confirm that the intended Active Directory changes occurred.
 
----
 
-## Lessons Learned
 
-### 1. Validate Before Making Changes
+Lessons Learned
+
+1. Validate Before Making Changes
 
 Automation should verify that required OUs and security groups exist before attempting directory operations.
 
-### 2. Keep Access Aligned with Job Responsibilities
+2. Keep Access Aligned with Job Responsibilities
 
 When an employee changes departments, obsolete department group membership should be removed to reduce unnecessary access.
 
-### 3. Offboarding Requires Multiple Controls
+3. Offboarding Requires Multiple Controls
 
 Disabling an account is only one part of offboarding. Removing department-specific access, isolating the account, and verifying the final state are also important.
 
-### 4. Prevent Duplicate Provisioning
+4. Prevent Duplicate Provisioning
 
 Checking for an existing account before creating a new one helps avoid duplicate identities.
 
-### 5. Verify the Outcome
+5. Verify the Outcome
 
 A command completing without an obvious error does not necessarily prove that the desired directory state was achieved. Post-operation verification helps catch problems.
 
-### 6. Protect Credentials
+6. Protect Credentials
 
 Passwords should not be hard-coded into scripts or committed to source control. This project uses a secure password prompt rather than storing the lab password in the source code.
 
-### 7. Plan for Partial Failures
+7. Plan for Partial Failures
 
 Multi-step operations can partially succeed. Production automation should include appropriate recovery or rollback procedures, monitoring, and escalation paths.
 
----
 
-## Future Improvements
+
+Future Improvements
 
 Potential enhancements for a more production-oriented implementation include:
 
@@ -312,9 +310,9 @@ Potential enhancements for a more production-oriented implementation include:
 
 These are potential future enhancements, not features claimed as completed in this project.
 
----
 
-## Skills Demonstrated
+
+Skills Demonstrated
 
 - Active Directory administration
 - PowerShell scripting and automation
@@ -330,16 +328,16 @@ These are potential future enhancements, not features claimed as completed in th
 - Audit logging and post-operation verification
 - Git and GitHub fundamentals
 
-## Project Scope and Limitations
+Project Scope and Limitations
 
 This is a portfolio lab project built with fictional employee data in a controlled Active Directory environment.
 
 It demonstrates foundational IAM automation concepts, but it is not a production-ready identity management solution. Production deployment would require additional security controls, formal testing, change management, monitoring, and operational safeguards.
 
-## Author
+Author
 
 IT / IAM Portfolio Project
 
-**Career focus:** IT Support → Identity and Access Management → Cybersecurity
+Career focus:** IT Support → Identity and Access Management → Cybersecurity
 
 
