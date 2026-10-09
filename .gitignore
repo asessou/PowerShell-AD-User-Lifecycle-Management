@@ -1,0 +1,13 @@
+# Local logs
+logs/
+
+# PowerShell temporary files
+*.log
+
+# Credentials and secrets
+*.secret
+*.cred
+*.credentials
+
+# Local backup files
+*.bak
