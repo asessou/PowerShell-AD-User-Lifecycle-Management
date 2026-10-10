@@ -343,7 +343,8 @@ It demonstrates foundational IAM automation concepts, but it is not a production
 
 ## Author
 
-IT / IAM Portfolio Project
+Amavi Sessou
+
 
 **Career focus:** IT Support → Identity and Access Management → Cybersecurity
 
