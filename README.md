@@ -1,10 +1,6 @@
-
-
-# PowerShell-AD-User-Lifecycle-Management
-PowerShell-based Active Directory user lifecycle automation for IAM portfolio development
-
-
 # PowerShell AD User Lifecycle Management
+
+PowerShell-based Active Directory user lifecycle automation for IAM portfolio development.
 
 ## Project Overview
 
@@ -12,40 +8,34 @@ This project demonstrates PowerShell-based automation for managing the employee 
 
 The project simulates common IAM and IT operations for a fictional organization, Northstar Medical Group (NMG):
 
-- **JOINER** — Provision a new employee
-- **MOVER** — Update an employee when their department or job changes
-- **LEAVER** — Disable and isolate an employee during offboarding
+- **JOINER** — Provision a new employee.
+- **MOVER** — Update an employee when their department or job changes.
+- **LEAVER** — Disable and isolate an employee during offboarding.
 
 The goal is to demonstrate practical Active Directory administration, role-based access control (RBAC), PowerShell automation, validation, error handling, and audit logging.
 
 > **Lab project:** This repository was developed in a controlled Windows Server Active Directory lab using fictional employee data. It is not intended to represent a production implementation.
 
-
-
 ---
-
 
 ## Objectives
 
-The project was designed to demonstrate the ability to:
+This project demonstrates the ability to:
 
-- Automate Active Directory user provisioning
-- Place users in the correct organizational unit (OU)
-- Assign department-based security groups
-- Update users during department transfers
-- Remove obsolete department access
-- Disable accounts during offboarding
-- Move disabled accounts to a dedicated Disabled Users OU
-- Prevent duplicate account creation
-- Validate target OUs and security groups
-- Handle errors without stopping the entire batch
-- Maintain basic audit logs
-- Verify the final state after lifecycle operations
-
-
+- Automate Active Directory user provisioning.
+- Place users in the correct organizational unit (OU).
+- Assign department-based security groups.
+- Update users during department transfers.
+- Remove obsolete department access.
+- Disable accounts during offboarding.
+- Move disabled accounts to a dedicated Disabled Users OU.
+- Prevent duplicate account creation.
+- Validate target OUs and security groups.
+- Handle errors without stopping the entire batch.
+- Maintain basic audit logs.
+- Verify the final state after lifecycle operations.
 
 ---
-
 
 ## Environment
 
@@ -61,7 +51,7 @@ The project was designed to demonstrate the ability to:
 
 ### Active Directory Structure
 
-Organizational Units:
+**Organizational units:**
 
 - HR
 - Operations
@@ -70,7 +60,7 @@ Organizational Units:
 - Sales
 - Disabled Users
 
-Department security groups:
+**Department security groups:**
 
 - HR-Users
 - Operations-Users
@@ -78,10 +68,7 @@ Department security groups:
 - IT-Users
 - Sales-Users
 
-
-
 ---
-
 
 ## Repository Structure
 
@@ -93,8 +80,7 @@ PowerShell-AD-User-Lifecycle-Management/
 │   ├── movers.csv
 │   └── leavers.csv
 │
-├── logs/
-│   └── Local execution logs are excluded from Git
+├── logs/                  # Local logs excluded from Git
 │
 ├── scripts/
 │   ├── New-NMGEmployee.ps1
@@ -103,42 +89,51 @@ PowerShell-AD-User-Lifecycle-Management/
 │
 ├── .gitignore
 └── README.md
+```
+
+---
 
 ## JOINER — Employee Onboarding
 
-### Script
+**Script:** `scripts/New-NMGEmployee.ps1`
 
-```text
-scripts/New-NMGEmployee.ps1
+The JOINER process reads employee information from `employees.csv` and automates new employee account provisioning.
 
+The script is designed to:
+
+- Check whether the user account already exists.
+- Validate the target organizational unit and department security group.
+- Create the Active Directory user.
+- Assign the appropriate department security group.
+- Apply the configured user attributes.
+- Verify the outcome.
 
 ### Security Consideration
 
-The script does not contain a hard-coded password.
-
-Instead, the administrator is prompted to enter the temporary password securely:
+The script does not contain a hard-coded password. The administrator is prompted to enter the temporary password securely:
 
 ```powershell
 $tempPassword = Read-Host "Enter temporary password" -AsSecureString
+```
+
+The temporary password should be handled according to the organization's password and account provisioning policies.
 
 ---
 
 ## MOVER — Department and Job Changes
 
-### Script
-
-`scripts/Move-NMGEmployee.ps1`
+**Script:** `scripts/Move-NMGEmployee.ps1`
 
 The MOVER process reads employee changes from `movers.csv`.
 
 It supports:
 
-- Department transfers
-- Job title changes
-- Department security group changes
-- Organizational unit (OU) movement
-- Validation of target OUs and security groups
-- Error handling and audit logging
+- Department transfers.
+- Job title changes.
+- Department security group changes.
+- Organizational unit (OU) movement.
+- Validation of target OUs and security groups.
+- Error handling and audit logging.
 
 ### Example: Finance to IT
 
@@ -148,7 +143,6 @@ When an employee transfers from Finance to IT, the script:
 2. Removes the employee from Finance-Users.
 3. Adds the employee to IT-Users.
 4. Updates the employee's department and job title.
-
 5. Moves the employee to the IT OU.
 6. Records the outcome in the local log.
 
@@ -158,9 +152,7 @@ The script also handles same-department title changes without unnecessarily chan
 
 ## LEAVER — Employee Offboarding
 
-### Script
-
-`scripts/Disable-NMGEmployee.ps1`
+**Script:** `scripts/Disable-NMGEmployee.ps1`
 
 The LEAVER process reads employee information from `leavers.csv`.
 
@@ -187,6 +179,7 @@ Department Access Removed
 Moved to Disabled Users OU
       ↓
 Final State Verified
+```
 
 ---
 
@@ -196,16 +189,24 @@ The lifecycle scripts were tested using fictional employees in the NMG Active Di
 
 ### JOINER Tests
 
-- Successful account creation
-- Correct OU placement and department attributes
-- Correct email address and department group membership
-- Duplicate account protection
+- Successful account creation.
+- Correct OU placement and department attributes.
+- Correct email address and department group membership.
+- Duplicate account protection.
 
-Example duplicate test result:
+Example duplicate-account test result:
 
 ```text
 User ejohnson already exists. No account was created.
+```
 
+### MOVER Tests
+
+Testing included department transfers, group membership changes, OU movement, job title updates, and validation of missing target OUs.
+
+### LEAVER Tests
+
+Testing included account disabling, removal from the department security group, movement to the Disabled Users OU, and verification of the final account state.
 
 ---
 
@@ -213,13 +214,13 @@ User ejohnson already exists. No account was created.
 
 The scripts validate required Active Directory objects and handle common operational errors, including:
 
-- Duplicate user accounts
-- Missing target organizational units
-- Missing department security groups
-- Missing current department groups
-- Failed group membership changes
-- Failed Active Directory updates or OU moves
-- Failed final verification
+- Duplicate user accounts.
+- Missing target organizational units.
+- Missing department security groups.
+- Missing current department groups.
+- Failed group membership changes.
+- Failed Active Directory updates or OU moves.
+- Failed final verification.
 
 The MOVER and LEAVER scripts write execution details and outcomes to local log files:
 
@@ -252,7 +253,7 @@ Department security groups represent role-based access assignments:
 
 ### Least Privilege
 
-During a department transfer, the script removes the employee from the previous department group before assigning the new department group.
+During a department transfer, the script removes the employee from the previous department group before assigning the new department group. This demonstrates the principle of removing obsolete department-specific access.
 
 ### Account Isolation
 
@@ -300,15 +301,15 @@ Multi-step operations can partially succeed. Production automation should includ
 
 Potential enhancements for a more production-oriented implementation include:
 
-- Centralized configuration management
-- Structured logging and standardized audit reports
-- Rollback or recovery handling for partially completed operations
-- Integration with a ticketing system and approval workflows
-- Microsoft Entra ID and Microsoft 365 provisioning
-- Secrets management through an approved enterprise solution
-- Least-privilege service accounts and delegated permissions
-- Automated testing and PowerShell code quality checks
-- Monitoring and alerting for failed lifecycle operations
+- Centralized configuration management.
+- Structured logging and standardized audit reports.
+- Rollback or recovery handling for partially completed operations.
+- Integration with a ticketing system and approval workflows.
+- Microsoft Entra ID and Microsoft 365 provisioning.
+- Secrets management through an approved enterprise solution.
+- Least-privilege service accounts and delegated permissions.
+- Automated testing and PowerShell code quality checks.
+- Monitoring and alerting for failed lifecycle operations.
 
 These are potential future enhancements, not features claimed as completed in this project.
 
@@ -316,19 +317,21 @@ These are potential future enhancements, not features claimed as completed in th
 
 ## Skills Demonstrated
 
-- Active Directory administration
-- PowerShell scripting and automation
-- Windows Server
-- Identity and Access Management (IAM)
-- User lifecycle management
-- Role-Based Access Control (RBAC)
-- Least-privilege principles
-- Organizational unit management
-- Security group management
-- User provisioning and deprovisioning
-- Input validation and error handling
-- Audit logging and post-operation verification
-- Git and GitHub fundamentals
+- Active Directory administration.
+- PowerShell scripting and automation.
+- Windows Server.
+- Identity and Access Management (IAM).
+- User lifecycle management.
+- Role-Based Access Control (RBAC).
+- Least-privilege principles.
+- Organizational unit management.
+- Security group management.
+- User provisioning and deprovisioning.
+- Input validation and error handling.
+- Audit logging and post-operation verification.
+- Git and GitHub fundamentals.
+
+---
 
 ## Project Scope and Limitations
 
@@ -336,10 +339,12 @@ This is a portfolio lab project built with fictional employee data in a controll
 
 It demonstrates foundational IAM automation concepts, but it is not a production-ready identity management solution. Production deployment would require additional security controls, formal testing, change management, monitoring, and operational safeguards.
 
+---
+
 ## Author
 
 IT / IAM Portfolio Project
 
 **Career focus:** IT Support → Identity and Access Management → Cybersecurity
 
-
+**GitHub repository:** https://github.com/asessou/PowerShell-AD-User-Lifecycle-Management
